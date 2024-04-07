@@ -3,7 +3,7 @@ import './styles.scss';
 import Board from './components/Board';
 import History from './components/History';
 import StatusMessage from './components/StatusMessage';
-import { calculateWinner } from './Winner';
+import { calculateWinner } from './Winner.js';
 const NEW_GAME = [{ squares: Array(9).fill(null), isXNext: false }];
 function App() {
   const [history, setHistory] = useState(NEW_GAME);
@@ -11,7 +11,7 @@ function App() {
 
   const gamingBoard = history[currentMove];
 
-  const winner = calculateWinner(gamingBoard.squares);
+  const { winner, winningSquares } = calculateWinner(gamingBoard.squares);
 
   const handleSquareClick = clickedPosition => {
     if (gamingBoard.squares[clickedPosition] || winner) {
@@ -58,6 +58,7 @@ function App() {
       <Board
         squares={gamingBoard.squares}
         handleSquareClick={handleSquareClick}
+        winningSquares={winningSquares}
       />
       <button
         type="button"
